@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { UserRegisterSchema } from "./schema";
 import prisma from "@/db/db";
 import bcrypt from "bcrypt";
+import { createJWT } from "@/utils/cookies";
 
 export async function POST(req: NextRequest) {
   let body;
@@ -47,7 +48,33 @@ export async function POST(req: NextRequest) {
     parseInt(process.env.SALT_ROUND!) || 10
   );
 
-  
+  try {
+    const newUser = await prisma.users.create({
+      data: {
+        first_name: validation.data.first_name,
+        last_name: validation.data.last_name,
+        username: validation.data.username,
+        password: hashed_password,
+        role_id: 2, // change when the role id was chnaged!
+      },
+    });
 
-  return NextResponse.json(hashed_password, { status: 200 });
+    //create token
+    const token = await createJWT({
+      user_id: newUser.id,
+      role_id: newUser.role_id,
+    });
+
+    req.cookies.set(token, token);
+
+    return NextResponse.json(
+      { status: "ok", message: "user created." },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "errro while connecting to Database!" },
+      { status: 400 }
+    );
+  }
 }
