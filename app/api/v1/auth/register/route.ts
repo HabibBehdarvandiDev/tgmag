@@ -65,12 +65,21 @@ export async function POST(req: NextRequest) {
       role_id: newUser.role_id,
     });
 
-    req.cookies.set(token, token);
-
-    return NextResponse.json(
-      { status: "ok", message: "user created." },
+    const response = NextResponse.json(
+      { status: "ok", message: "User created." },
       { status: 201 }
     );
+
+    response.cookies.set({
+      name: "token",
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+    });
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       { error: "errro while connecting to Database!" },
