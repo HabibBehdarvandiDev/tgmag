@@ -7,7 +7,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserRegisterSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { ApiResponse } from "@/schema/API";
 
 // form inputs
 interface Inputs {
@@ -45,25 +46,33 @@ const RegisterForm = () => {
         // Handle successful registration (e.g., redirect or show success message)
         console.log("User registered successfully");
       }
-    } catch (error: any) {
-      if (error.response) {
-        const result = error.response.data;
-
-        if (result.errors) {
-          // Set field-specific errors from the API response
-          for (const [key, value] of Object.entries(result.errors)) {
-            setError(key as keyof Inputs, {
-              type: "manual",
-              message: (value as string[])[0], // Use the first error message for the field
-            });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<ApiResponse>;
+  
+        // Handle API errors with a response
+        if (axiosError.response) {
+          const result = axiosError.response.data;
+  
+          if (result.errors) {
+            // Set field-specific errors from the API response
+            for (const [key, value] of Object.entries(result.errors)) {
+              setError(key as keyof Inputs, {
+                type: 'manual',
+                message: (value as string[])[0], // Use the first error message for the field
+              });
+            }
+          } else if (result.message) {
+            // Set general form error if no field-specific errors are provided
+            setFormError(result.message);
           }
-        } else if (result.message) {
-          // Set general form error if no field-specific errors are provided
-          setFormError(result.message);
+        } else {
+          // If no response from the server, show a generic error message
+          setFormError('خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.');
         }
       } else {
-        // If no response from the server, show a generic error message
-        setFormError("خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.");
+        // Handle unexpected errors
+        setFormError('خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.');
       }
     }
   };
@@ -141,7 +150,7 @@ const RegisterForm = () => {
           )}
         </div>
       </CardBody>
-      <CardFooter>
+      <CardFooter className="flex flex-col space-y-4">
         <Button
           type="submit"
           className="w-full"
@@ -150,13 +159,10 @@ const RegisterForm = () => {
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
-
-        {formError && (
-          <p className="text-xs text-red-600 mt-2" role="alert">
-            {formError}
-          </p>
-        )}
+        <div className="bg-red-100 p-3 rounded-xl w-full">
+      </div>
       </CardFooter>
+      
     </form>
   );
 };

@@ -34,4 +34,5 @@ const UserLoginSchema = z.object({
     .max(100, { message: "رمز عبور نمی‌تواند بیشتر از 100 حرف باشد." }),
 });
 
+
 export { UserRegisterSchema, UserLoginSchema };

@@ -5,7 +5,7 @@ const RegisterPage = () => {
   return (
     <div className="h-screen overflow-hidden flex flex-col items-center align-middle justify-center lg:flex-row">
       <div className="w-full h-full lg:w-2/5 p-4 flex items-center justify-center bg-white dark:bg-zinc-900">
-        <Card className="w-full max-w-md shadow-none">
+        <Card className="w-full max-w-md shadow-none bg-transparent">
           <CardHeader className="fle flex-col">
             <h1 className="text-2xl font-bold text-primary">تی جی مگ</h1>
             <p>اکانت بسازید و به دنیای بازی ها وارد شوید.</p>
