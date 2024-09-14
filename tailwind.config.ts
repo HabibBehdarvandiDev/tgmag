@@ -24,7 +24,7 @@ const config: Config = {
             success: "#219849",
             warning: "#fdcc12",
             danger: "#f83b3b",
-            background: "#F2F2F2",
+            background: "#FAFAFA",
           },
         },
         dark: {
