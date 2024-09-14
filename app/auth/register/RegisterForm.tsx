@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserRegisterSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 // form inputs
 interface Inputs {
@@ -17,19 +18,58 @@ interface Inputs {
 }
 
 const RegisterForm = () => {
+  // imports fror react-hook-form handlers
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>({
     resolver: zodResolver(UserRegisterSchema),
   });
 
+  // visibility state for password Input
   const [isVisible, setIsVisible] = useState(false);
-
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const onSubmit = async (data: Inputs) => {
+    setFormError(null); // Clear any previous form-level errors
+
+    try {
+      // Sending the request using axios
+      const response = await axios.post("/api/v1/auth/register", data);
+
+      if (response.data.status === "success") {
+        // Handle successful registration (e.g., redirect or show success message)
+        console.log("User registered successfully");
+      }
+    } catch (error: any) {
+      if (error.response) {
+        const result = error.response.data;
+
+        if (result.errors) {
+          // Set field-specific errors from the API response
+          for (const [key, value] of Object.entries(result.errors)) {
+            setError(key as keyof Inputs, {
+              type: "manual",
+              message: (value as string[])[0], // Use the first error message for the field
+            });
+          }
+        } else if (result.message) {
+          // Set general form error if no field-specific errors are provided
+          setFormError(result.message);
+        }
+      } else {
+        // If no response from the server, show a generic error message
+        setFormError("خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.");
+      }
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit((d) => console.log(d))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <CardBody className="space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2 text-right">
@@ -110,6 +150,12 @@ const RegisterForm = () => {
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
+
+        {formError && (
+          <p className="text-xs text-red-600 mt-2" role="alert">
+            {formError}
+          </p>
+        )}
       </CardFooter>
     </form>
   );
