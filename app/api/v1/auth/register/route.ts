@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { UserRegisterSchema } from "./schema";
+import { UserRegisterSchema } from "@/schema/auth";
 import prisma from "@/db/db";
 import bcrypt from "bcrypt";
 import { createJWT } from "@/utils/cookies";
