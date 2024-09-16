@@ -12,7 +12,7 @@ import { useToast } from "@/context/ToastContext";
 import { ApiResponse } from "@/schema/api";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 import { useUser } from "@/context/userContext";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // form inputs
 interface Inputs {
@@ -26,9 +26,6 @@ const RegisterForm = () => {
   const { addToast } = useToast();
   const { setUser, user } = useUser();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const fallBackUrl = searchParams.get("fallBackUrl") || "/";
   // imports fror react-hook-form handlers
   const {
     register,
@@ -76,7 +73,7 @@ const RegisterForm = () => {
           variant: "success",
         });
         setTimeout(() => {
-          router.push(fallBackUrl);
+          router.push("/");
         }, 5000);
       }
     } catch (error) {

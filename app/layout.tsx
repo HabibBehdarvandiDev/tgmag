@@ -1,9 +1,9 @@
+import "./globals.css";
 import { ToastProvider } from "@/context/ToastContext";
 import { UserProvider } from "@/context/userContext";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import localFont from "next/font/local";
-import "./globals.css";
 
 const Yekan = localFont({ src: "./fonts/yekan/YekanBakhFaNum-VF.woff2" });
 
