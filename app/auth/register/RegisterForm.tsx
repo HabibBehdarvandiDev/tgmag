@@ -9,6 +9,7 @@ import { UserRegisterSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/schema/API";
+import { useToast } from "@/context/ToastContext";
 
 // form inputs
 interface Inputs {
@@ -49,16 +50,16 @@ const RegisterForm = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<ApiResponse>;
-  
+
         // Handle API errors with a response
         if (axiosError.response) {
           const result = axiosError.response.data;
-  
+
           if (result.errors) {
             // Set field-specific errors from the API response
             for (const [key, value] of Object.entries(result.errors)) {
               setError(key as keyof Inputs, {
-                type: 'manual',
+                type: "manual",
                 message: (value as string[])[0], // Use the first error message for the field
               });
             }
@@ -68,11 +69,11 @@ const RegisterForm = () => {
           }
         } else {
           // If no response from the server, show a generic error message
-          setFormError('خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.');
+          setFormError("خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.");
         }
       } else {
         // Handle unexpected errors
-        setFormError('خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.');
+        setFormError("خطایی در ثبت نام رخ داده است. لطفا دوباره تلاش کنید.");
       }
     }
   };
@@ -159,10 +160,8 @@ const RegisterForm = () => {
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
-        <div className="bg-red-100 p-3 rounded-xl w-full">
-      </div>
+        <div className="bg-red-100 p-3 rounded-xl w-full"></div>
       </CardFooter>
-      
     </form>
   );
 };
