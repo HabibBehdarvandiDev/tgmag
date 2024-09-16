@@ -1,16 +1,16 @@
 import { Card, CardHeader } from "@nextui-org/react";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   return (
     <div className="h-screen overflow-hidden flex flex-col items-center align-middle justify-center lg:flex-row">
       <div className="w-full h-full lg:w-2/5 p-4 flex items-center justify-center bg-white dark:bg-zinc-900">
         <Card className="w-full max-w-md shadow-none bg-transparent -mt-24">
-          <CardHeader className="fle flex-col text-primary">
-            <h1 className="text-2xl font-bold text-primary">ثبت نام</h1>
-            <p>ثبت نام کنید و به دنیای نویسنده ا بپیوندید.</p>
+          <CardHeader className="fle flex-col space-y-4">
+            <h1 className="text-2xl font-bold text-primary">خوش برگشتی 😉</h1>
+            <p className="text-pretty">برای ورود وبسایت باید نام کاربری و رمز عبور خود را وارد کنید.</p>
           </CardHeader>
-          <RegisterForm />
+          <LoginForm />
         </Card>
       </div>
 
@@ -25,4 +25,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
