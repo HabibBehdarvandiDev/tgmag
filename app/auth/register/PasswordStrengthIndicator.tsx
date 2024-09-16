@@ -21,9 +21,9 @@ const PasswordStrengthIndicator = ({
   let strength = 0;
   if (hasLowercase) strength += 20;
   if (hasUppercase) strength += 20;
+  if (isMinLength) strength += 20;
   if (hasNumber) strength += 20;
   if (hasSpecialChar) strength += 20;
-  if (isMinLength) strength += 20;
 
   const progressColor =
     strength < 40

@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       data: {
         first_name: validation.data.first_name,
         last_name: validation.data.last_name,
-        username: validation.data.username,
+        username: validation.data.username.toLowerCase(),
         password: hashed_password,
         role_id: 2, // Default role, change if necessary
       },

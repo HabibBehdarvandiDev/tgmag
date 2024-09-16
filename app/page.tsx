@@ -1,12 +1,10 @@
 "use client";
 
 import { useToast } from "@/context/ToastContext";
-import { useUser } from "@/context/userContext";
 import { Button } from "@nextui-org/react";
 
 export default function Home() {
   const { addToast } = useToast();
-  const { user } = useUser();
 
   const handleShowToast = () => {
     addToast({
@@ -21,7 +19,7 @@ export default function Home() {
 
   return (
     <div>
-      <Button onClick={handleShowToast}>{user?.first_name}</Button>
+      <Button onClick={handleShowToast}>click</Button>
     </div>
   );
 }
