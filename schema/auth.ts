@@ -17,9 +17,8 @@ const UserRegisterSchema = z.object({
     .max(24, { message: "نام کاربری نمی‌تواند بیشتر از 24 حرف باشد." }),
 
   password: z
-    .string({ required_error: "رمز عبور الزامی است." })
-    .min(8, { message: "رمز عبور باید حداقل ۸ حرف باشد." })
-    .max(100, { message: "رمز عبور نمی‌تواند بیشتر از 100 حرف باشد." }),
+    .string({ required_error: " رمز ورود الزامی است." })
+    .min(8, { message: "رمز عبور باید حداقل ۸ کاراکتر باشد" }),
 });
 
 const UserLoginSchema = z.object({
@@ -33,6 +32,5 @@ const UserLoginSchema = z.object({
     .min(8, { message: "رمز عبور باید حداقل ۸ حرف باشد." })
     .max(100, { message: "رمز عبور نمی‌تواند بیشتر از 100 حرف باشد." }),
 });
-
 
 export { UserRegisterSchema, UserLoginSchema };

@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { useToast } from "@/context/ToastContext";
 import { ApiResponse } from "@/schema/api";
+import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 
 // form inputs
 interface Inputs {
@@ -36,6 +37,9 @@ const RegisterForm = () => {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const [formError, setFormError] = useState<string | null>(null);
+
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [passwordStrength, setPasswordStrength] = useState<number>(0);
 
   const onSubmit = async (data: Inputs) => {
     setFormError(null); // Clear any previous form-level errors
@@ -136,7 +140,7 @@ const RegisterForm = () => {
             </p>
           )}
         </div>
-        <div className="space-y-2 text-right">
+        <div className="space-y-3 text-right">
           <Input
             id="password"
             variant="flat"
@@ -157,6 +161,11 @@ const RegisterForm = () => {
               </button>
             }
             {...register("password")}
+            onChange={(e) => setPasswordValue(e.target.value)}
+          />
+          <PasswordStrengthIndicator
+            password={passwordValue}
+            onStrengthChange={setPasswordStrength}
           />
           {errors.password && (
             <p className="text-xs text-red-600" role="alert">
@@ -170,7 +179,7 @@ const RegisterForm = () => {
           type="submit"
           className="w-full"
           color="primary"
-          disabled={isSubmitting}
+          disabled={isSubmitting || passwordStrength < 100}
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
