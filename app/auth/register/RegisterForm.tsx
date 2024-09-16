@@ -11,6 +11,8 @@ import axios, { AxiosError } from "axios";
 import { useToast } from "@/context/ToastContext";
 import { ApiResponse } from "@/schema/api";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
+import { useUser } from "@/context/userContext";
+import { useRouter } from "next/navigation";
 
 // form inputs
 interface Inputs {
@@ -22,6 +24,8 @@ interface Inputs {
 
 const RegisterForm = () => {
   const { addToast } = useToast();
+  const { setUser, user } = useUser();
+  const router = useRouter();
   // imports fror react-hook-form handlers
   const {
     register,
@@ -50,13 +54,17 @@ const RegisterForm = () => {
 
       if (response.data.status === "success") {
         // Handle successful registration (e.g., redirect or show success message)
+        //await for dont get in to conflict when you want to access it
+        await setUser(response.data.user);
+
         addToast({
           title: "ثبت نام موفق بود.",
           message: (
             <div>
               <p>
-                تبریک شما الان جزئی از خانواده تی جی مگ هستید 😎 <br /> درحال
-                انتقالبه داشبورد...
+                {user?.first_name} تبریک میگم شما الان جزئی از خانواده تی جی مگ
+                هستید 😎 <br />
+                در حال انتقال به داشبورد...
               </p>
             </div>
           ),
@@ -64,6 +72,9 @@ const RegisterForm = () => {
           position: "bottom-right",
           variant: "success",
         });
+        setTimeout(() => {
+          router.push("/");
+        }, 5000);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {

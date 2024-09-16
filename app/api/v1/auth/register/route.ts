@@ -79,7 +79,19 @@ export async function POST(req: NextRequest) {
 
     // Set the token in cookies and return success response
     const response = NextResponse.json(
-      { status: "success", message: "حساب کاربری شما با موفقیت ایجاد شد." },
+      {
+        status: "success",
+        message: "حساب کاربری شما با موفقیت ایجاد شد.",
+        user: {
+          id: newUser.id,
+          first_name: newUser.first_name,
+          last_name: newUser.last_name,
+          username: newUser.username,
+          role_id: newUser.role_id,
+          is_active: newUser.is_active,
+          is_verified: newUser.is_verified,
+        },
+      },
       { status: 201 }
     );
 
