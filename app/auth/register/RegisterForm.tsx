@@ -12,6 +12,7 @@ import { useToast } from "@/context/ToastContext";
 import { ApiResponse } from "@/schema/api";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 import { useRouter } from "next/navigation";
+import DynamicAuthButton from "@/components/DynamicAuthButton";
 
 // form inputs
 interface Inputs {
@@ -189,6 +190,9 @@ const RegisterForm = () => {
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
+        <div className="w-full flex justify-start align-middle items-center">
+          <DynamicAuthButton />
+        </div>
         {formError && (
           <div className="bg-red-100 p-3 rounded-xl w-full text-red-600 text-xs">
             {formError}

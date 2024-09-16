@@ -8,7 +8,9 @@ const RegisterPage = () => {
         <Card className="w-full max-w-md shadow-none bg-transparent -mt-24">
           <CardHeader className="fle flex-col text-primary">
             <h1 className="text-2xl font-bold text-primary">ثبت نام</h1>
-            <p>ثبت نام کنید و به دنیای نویسنده ا بپیوندید.</p>
+            <p className="text-foreground text-pretty">
+              ثبت نام کنید و به دنیای نویسندها بپیوندید.
+            </p>
           </CardHeader>
           <RegisterForm />
         </Card>

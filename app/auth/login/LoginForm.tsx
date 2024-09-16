@@ -1,5 +1,6 @@
 "use client";
 
+import DynamicAuthButton from "@/components/DynamicAuthButton";
 import EyeIcon from "@/components/icons/EyeIcon";
 import ViewOffIcon from "@/components/icons/ViewOffIcon";
 import { useToast } from "@/context/ToastContext";
@@ -150,6 +151,9 @@ const LoginForm = () => {
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
+        <div className="w-full flex justify-start align-middle items-center">
+          <DynamicAuthButton />
+        </div>
         {formError && (
           <div className="bg-red-100 p-3 rounded-xl w-full text-red-600 text-xs">
             {formError}

@@ -8,7 +8,7 @@ const LoginPage = () => {
         <Card className="w-full max-w-md shadow-none bg-transparent -mt-24">
           <CardHeader className="fle flex-col space-y-4">
             <h1 className="text-2xl font-bold text-primary">خوش برگشتی 😉</h1>
-            <p className="text-pretty">برای ورود وبسایت باید نام کاربری و رمز عبور خود را وارد کنید.</p>
+            <p className="text-pretty text-foreground">برای ورود وبسایت باید نام کاربری و رمز عبور خود را وارد کنید.</p>
           </CardHeader>
           <LoginForm />
         </Card>
