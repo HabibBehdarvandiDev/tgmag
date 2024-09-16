@@ -8,8 +8,8 @@ import { useForm } from "react-hook-form";
 import { UserRegisterSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
-import { ApiResponse } from "@/schema/API";
 import { useToast } from "@/context/ToastContext";
+import { ApiResponse } from "@/schema/api";
 
 // form inputs
 interface Inputs {
@@ -174,7 +174,11 @@ const RegisterForm = () => {
         >
           {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
         </Button>
-        <div className="bg-red-100 p-3 rounded-xl w-full"></div>
+        {formError && (
+          <div className="bg-red-100 p-3 rounded-xl w-full text-red-600 text-xs">
+            {formError}
+          </div>
+        )}
       </CardFooter>
     </form>
   );

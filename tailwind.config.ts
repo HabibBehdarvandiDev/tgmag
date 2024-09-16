@@ -9,7 +9,22 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+      },
+      keyframes: {
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+      },
+    },
   },
   darkMode: "class",
   plugins: [
@@ -24,7 +39,7 @@ const config: Config = {
             success: "#219849",
             warning: "#fdcc12",
             danger: "#f83b3b",
-            background: "#FAFAFA",
+            background: "#F2F2F2",
           },
         },
         dark: {
