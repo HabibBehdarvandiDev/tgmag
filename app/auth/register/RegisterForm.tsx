@@ -20,6 +20,7 @@ interface Inputs {
 }
 
 const RegisterForm = () => {
+  const { addToast } = useToast();
   // imports fror react-hook-form handlers
   const {
     register,
@@ -45,7 +46,20 @@ const RegisterForm = () => {
 
       if (response.data.status === "success") {
         // Handle successful registration (e.g., redirect or show success message)
-        console.log("User registered successfully");
+        addToast({
+          title: "ثبت نام موفق بود.",
+          message: (
+            <div>
+              <p>
+                تبریک شما الان جزئی از خانواده تی جی مگ هستید 😎 <br /> درحال
+                انتقالبه داشبورد...
+              </p>
+            </div>
+          ),
+          duration: 5000,
+          position: "bottom-right",
+          variant: "success",
+        });
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
