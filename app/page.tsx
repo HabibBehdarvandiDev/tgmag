@@ -10,10 +10,11 @@ export default function Home() {
     addToast({
       title: "Success",
       message: "This is a success toast!",
-      variant: "info",
+      variant: "success",
       duration: 3000,
       position: "top-right",
       isPermanent: true,
+      icon:<div>💵</div>
     });
   };
 

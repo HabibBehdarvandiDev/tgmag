@@ -5,7 +5,7 @@ import EyeIcon from "@/components/icons/EyeIcon";
 import ViewOffIcon from "@/components/icons/ViewOffIcon";
 import { useToast } from "@/context/ToastContext";
 import { ApiResponse } from "@/schema/api";
-import { UserRegisterSchema } from "@/schema/auth";
+import { UserLoginSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, CardBody, CardFooter, Input } from "@nextui-org/react";
 import axios, { AxiosError } from "axios";
@@ -29,7 +29,7 @@ const LoginForm = () => {
     setError,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>({
-    resolver: zodResolver(UserRegisterSchema),
+    resolver: zodResolver(UserLoginSchema),
   });
 
   // visibility state for password Input
@@ -39,23 +39,22 @@ const LoginForm = () => {
   const [formError, setFormError] = useState<string | null>(null);
 
   const onSubmit = async (data: Inputs) => {
+    console.log("click");
+
     setFormError(null); // Clear any previous form-level errors
 
     try {
       // Sending the request using axios
-      const response = await axios.post("/api/v1/auth/register", data);
+      const response = await axios.post("/api/v1/auth/login", data);
 
       if (response.data.status === "success") {
         // Handle successful registration (e.g., redirect or show success message)
 
         addToast({
-          title: "ثبت نام موفق بود.",
+          title: "ورود موفقیت آمیز بود.",
           message: (
             <div>
-              <p>
-                تبریک میگم شما الان جزئی از خانواده تی جی مگ هستید 😎 <br />
-                در حال انتقال به داشبورد...
-              </p>
+              <p>در حال انتقال صفحه، لطفا صبور باشید...</p>
             </div>
           ),
           duration: 5000,
@@ -147,9 +146,9 @@ const LoginForm = () => {
           type="submit"
           className="w-full"
           color="primary"
-          disabled={isSubmitting}
+          isDisabled={false}
         >
-          {isSubmitting ? "درحال ثبت نام" : "ثبت نام"}
+          {isSubmitting ? "درحال ورود" : "ورود"}
         </Button>
         <div className="w-full flex justify-start align-middle items-center">
           <DynamicAuthButton />
