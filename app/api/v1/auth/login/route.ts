@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     const token = await createJWT({
       user_id: user.id,
       role_id: user.role_id,
-      user_role: userRole,
+      user_role: userRole?.role_name,
     });
 
     // Set the token in cookies
