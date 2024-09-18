@@ -1,4 +1,3 @@
-import Header from "@/components/ui/layout/Header";
 import "./globals.css";
 import { ToastProvider } from "@/context/ToastContext";
 import { UserProvider } from "@/context/userContext";
@@ -20,7 +19,6 @@ export default function RootLayout({
           <NextThemesProvider attribute="class" defaultTheme="light">
             <ToastProvider>
               <UserProvider>
-                <Header />
                 {children}
               </UserProvider>
             </ToastProvider>

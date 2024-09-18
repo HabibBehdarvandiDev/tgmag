@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {UserLoginSchema} from "@/schema/auth";
+import { UserLoginSchema } from "@/schema/auth";
 import prisma from "@/db/db";
 import bcrypt from "bcrypt";
 import { createJWT } from "@/utils/cookies";
@@ -57,8 +57,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const userRole = await prisma.roles.findUnique({
+      where: {
+        id: user.role_id!,
+      },
+    });
+
     // Create JWT token
-    const token = await createJWT({ user_id: user.id, role_id: user.role_id });
+    const token = await createJWT({
+      user_id: user.id,
+      role_id: user.role_id,
+      user_role: userRole,
+    });
 
     // Set the token in cookies
     const response = NextResponse.json(

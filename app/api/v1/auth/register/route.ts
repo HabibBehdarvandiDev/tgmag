@@ -71,10 +71,17 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    const userRole = await prisma.roles.findUnique({
+      where: {
+        id: newUser.role_id!,
+      },
+    });
+
     // Create JWT token
     const token = await createJWT({
       user_id: newUser.id,
       role_id: newUser.role_id,
+      role_name: userRole,
     });
 
     // Set the token in cookies and return success response
