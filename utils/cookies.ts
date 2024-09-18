@@ -1,9 +1,8 @@
 import { SignJWT, jwtVerify, JWTPayload } from "jose";
-import { TextEncoder } from "util";
 
 // Define the secret key and algorithm for JWT
 const secretKey = new TextEncoder().encode(
-  process.env.JWT_SECRET! || "default_secret_key"
+  process.env.JWT_SECRET! || "5Gu/vLjC8VXhBpZbZODm70NGTtNU/Zw/FndSbZxqeHo="
 );
 const issuer = process.env.APPLICATION_NAME! || "TGMAG";
 
