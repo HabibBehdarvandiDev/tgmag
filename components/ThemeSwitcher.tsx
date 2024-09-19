@@ -1,23 +1,32 @@
 "use client";
 
-import {useTheme} from "next-themes";
+import { Button } from "@nextui-org/react";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import DarkModeIcon from "./icons/DarkModeIcon";
+import Moon02Icon from "./icons/Moon02Icon";
+import Sun03Icon from "./icons/Sun03Icon";
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if(!mounted) return null
+  if (!mounted) return null;
 
   return (
     <div>
-      The current theme is: {theme}
-      <button onClick={() => setTheme('light')}>Light Mode</button>
-      <button onClick={() => setTheme('dark')}>Dark Mode</button>
+      <Button
+        color="primary"
+        isIconOnly
+        variant="flat"
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      >
+        {theme === "light" ? <Moon02Icon /> : <Sun03Icon />}
+      </Button>
     </div>
-  )
-};
+  );
+}

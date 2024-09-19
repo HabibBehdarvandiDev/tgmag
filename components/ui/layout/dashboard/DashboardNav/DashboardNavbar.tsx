@@ -41,7 +41,7 @@ const DashboardNavbar = () => {
 
   return (
     <nav
-      className="relative flex flex-col justify-start items-center gap-3 bg-background text-foreground rounded-lg"
+      className="relative flex flex-col justify-start items-center gap-3 text-foreground rounded-lg"
       ref={navRef}
     >
       {activeLinkIndex !== null && (
