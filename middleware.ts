@@ -3,16 +3,15 @@ import { validateJWT } from "./utils/cookies";
 import { isAuthorized } from "./lib/utils";
 
 const protectedRoutes = {
-  "/admin": "admin",
-  "/manager": "manager",
-  "/writer": "writer",
+  "/dashboard/admin": "admin",
+  "/dashboard/manager": "manager",
+  "/dashboard/writer": "writer",
 };
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const roleRequired = protectedRoutes[pathname];
-  console.log(roleRequired);
 
   if (roleRequired) {
     const token = req.cookies.get("token")?.value;
@@ -29,7 +28,6 @@ export async function middleware(req: NextRequest) {
       }
 
       const userRole: string = decodedToken.user_role;
-      console.log(userRole);
 
       if (!isAuthorized(userRole, roleRequired)) {
         return NextResponse.redirect(new URL("/403", req.url));

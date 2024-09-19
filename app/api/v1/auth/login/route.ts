@@ -72,7 +72,20 @@ export async function POST(req: NextRequest) {
 
     // Set the token in cookies
     const response = NextResponse.json(
-      { status: "success", message: "ورود شما موفقیت آمیز بود." },
+      {
+        status: "success",
+        message: "ورود شما موفقیت آمیز بود.",
+        user: {
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          username: user.username,
+          role_id: user.role_id,
+          is_active: user.is_active,
+          is_verified: user.is_verified,
+          user_role: userRole?.role_name,
+        },
+      },
       { status: 200 }
     );
 

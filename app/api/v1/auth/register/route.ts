@@ -97,6 +97,7 @@ export async function POST(req: NextRequest) {
           role_id: newUser.role_id,
           is_active: newUser.is_active,
           is_verified: newUser.is_verified,
+          user_role: userRole?.role_name,
         },
       },
       { status: 201 }

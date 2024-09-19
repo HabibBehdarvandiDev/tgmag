@@ -1,18 +1,18 @@
 "use client";
 
+import DynamicAuthButton from "@/components/DynamicAuthButton";
 import EyeIcon from "@/components/icons/EyeIcon";
 import ViewOffIcon from "@/components/icons/ViewOffIcon";
-import { Button, CardBody, CardFooter, Input } from "@nextui-org/react";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { UserRegisterSchema } from "@/schema/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { AxiosError } from "axios";
 import { useToast } from "@/context/ToastContext";
 import { ApiResponse } from "@/schema/api";
-import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
+import { UserRegisterSchema } from "@/schema/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, CardBody, CardFooter, Input } from "@nextui-org/react";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import DynamicAuthButton from "@/components/DynamicAuthButton";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 
 // form inputs
 interface Inputs {
@@ -53,6 +53,9 @@ const RegisterForm = () => {
 
       if (response.data.status === "success") {
         // Handle successful registration (e.g., redirect or show success message)
+
+        localStorage.setItem("user_id", response.data.user.id);
+        localStorage.setItem("user_role", response.data.user.user_role);
 
         addToast({
           title: "ثبت نام موفق بود.",

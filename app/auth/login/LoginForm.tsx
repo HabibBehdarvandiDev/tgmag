@@ -50,6 +50,8 @@ const LoginForm = () => {
       if (response.data.status === "success") {
         // Handle successful registration (e.g., redirect or show success message)
 
+        localStorage.setItem("user_id", response.data.user.id);
+        localStorage.setItem("user_role", response.data.user.user_role);
         addToast({
           title: "ورود موفقیت آمیز بود.",
           message: (

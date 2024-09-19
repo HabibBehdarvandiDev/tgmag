@@ -1,4 +1,4 @@
-import DashboardAside from "@/components/ui/layout/DashboardAside";
+import DashboardAside from "@/components/ui/layout/DashboardAside/DashboardAside";
 import { ReactNode } from "react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
