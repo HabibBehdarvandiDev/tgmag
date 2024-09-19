@@ -1,6 +1,7 @@
 "use client";
 import { AsideLinksSection } from "@/schema/UI";
 import {
+  Avatar,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -32,38 +33,73 @@ const AsideDropDown = () => {
   };
 
   return (
-    <Dropdown backdrop="blur">
-      <DropdownTrigger>
-        <User
-          as="button"
-          avatarProps={{
-            isBordered: true,
-            src: "#",
-          }}
-          className="transition-transform"
-          description="@habibetoon"
-          name="حبیب بهداروندی"
-        />
-      </DropdownTrigger>
-      <DropdownMenu variant="flat" aria-label="Dropdown menu with description">
-        {roleLinks[role].map((section) => (
-          <DropdownSection title={section.section} key={section.section}>
-            {section.links.map((link) => (
-              <DropdownItem
-                key={link.key}
-                shortcut={link.shortcut}
-                description={link.description}
-                color={link.color}
-                startContent={link.startContent || null}
-                href={link.href}
-              >
-                {link.title}
-              </DropdownItem>
+    <>
+      <div className="block lg:hidden">
+        <Dropdown backdrop="blur">
+          <DropdownTrigger>
+            <Avatar isBordered radius="lg" src="#" />
+          </DropdownTrigger>
+          <DropdownMenu
+            variant="flat"
+            aria-label="Dropdown menu with description"
+          >
+            {roleLinks[role].map((section) => (
+              <DropdownSection title={section.section} key={section.section}>
+                {section.links.map((link) => (
+                  <DropdownItem
+                    key={link.key}
+                    shortcut={link.shortcut}
+                    description={link.description}
+                    color={link.color}
+                    startContent={link.startContent || null}
+                    href={link.href}
+                  >
+                    {link.title}
+                  </DropdownItem>
+                ))}
+              </DropdownSection>
             ))}
-          </DropdownSection>
-        ))}
-      </DropdownMenu>
-    </Dropdown>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+      <div className="hidden lg:block">
+        <Dropdown backdrop="blur">
+          <DropdownTrigger>
+            <User
+              as="button"
+              avatarProps={{
+                isBordered: true,
+                src: "#",
+              }}
+              className="transition-transform"
+              description="@habibetoon"
+              name="حبیب بهداروندی"
+            />
+          </DropdownTrigger>
+          <DropdownMenu
+            variant="flat"
+            aria-label="Dropdown menu with description"
+          >
+            {roleLinks[role].map((section) => (
+              <DropdownSection title={section.section} key={section.section}>
+                {section.links.map((link) => (
+                  <DropdownItem
+                    key={link.key}
+                    shortcut={link.shortcut}
+                    description={link.description}
+                    color={link.color}
+                    startContent={link.startContent || null}
+                    href={link.href}
+                  >
+                    {link.title}
+                  </DropdownItem>
+                ))}
+              </DropdownSection>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    </>
   );
 };
 

@@ -41,7 +41,7 @@ const DashboardNavbar = () => {
 
   return (
     <nav
-      className="relative flex flex-col justify-start items-start gap-3 bg-background text-foreground rounded-lg"
+      className="relative flex flex-col justify-start items-center gap-3 bg-background text-foreground rounded-lg"
       ref={navRef}
     >
       {activeLinkIndex !== null && (
@@ -59,14 +59,14 @@ const DashboardNavbar = () => {
           key={link.href}
           href={link.href}
           className={classnames(
-            "w-full px-4 py-2 rounded-lg transition-all duration-300 ease-in-out flex items-center align-middle gap-3 relative", // Base styles
+            "w-full px-5 py-2 rounded-lg transition-all duration-300 ease-in-out flex items-center align-middle gap-3 relative self-center", // Base styles
             {
               "text-primary": pathname === link.href, // Active link text color
               "hover:bg-muted hover:text-primary": pathname !== link.href, // Hover state
             }
           )}
         >
-          {link.startContent} {link.title}
+          {link.startContent} <span className="hidden lg:block"> {link.title}</span>
         </Link>
       ))}
     </nav>

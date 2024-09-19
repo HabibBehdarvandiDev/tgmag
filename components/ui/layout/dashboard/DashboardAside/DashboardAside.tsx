@@ -5,8 +5,8 @@ import { Card } from "@nextui-org/react";
 
 const DashboardAside = () => {
   return (
-    <Card className="w-64 h-screen bg-background py-4 flex flex-col">
-      <div className="flex items-center mb-6 px-4">
+    <Card className="w-16 lg:w-64 h-screen bg-background py-4 flex flex-col overflow-hidden">
+      <div className="flex items-center mb-6 justify-center lg:justify-start lg:px-4">
         <AsideDropDown />
       </div>
 
