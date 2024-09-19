@@ -1,10 +1,10 @@
 import Bug02Icon from "@/components/icons/Bug02Icon";
 import Call02Icon from "@/components/icons/Call02Icon";
 import Door01Icon from "@/components/icons/Door01Icon";
-import Home04Icon from "@/components/icons/Home04Icon";
 import LicenseDraftIcon from "@/components/icons/LicenseDraftIcon";
 import Settings02Icon from "@/components/icons/Settings02Icon";
 import UserAdd02Icon from "@/components/icons/UserAdd02Icon";
+import UserIcon from "@/components/icons/UserIcon";
 import { AsideDropDown } from "@/schema/UI";
 
 export const WriterDropDownLinks: AsideDropDown = [
@@ -15,7 +15,7 @@ export const WriterDropDownLinks: AsideDropDown = [
         title: "پروفایل",
         key: "profile",
         href: "/dashboard/setting/profile",
-        startContent: <Home04Icon className="w-5 h-5" />,
+        startContent: <UserIcon className="w-5 h-5" />,
       },
       {
         title: "نوشته جدید",
@@ -69,7 +69,7 @@ export const AdminDropDownLinks: AsideDropDown = [
         title: "پروفایل",
         key: "profile",
         href: "/dashboard/setting/profile",
-        startContent: <Home04Icon className="w-5 h-5" />,
+        startContent: <UserIcon className="w-5 h-5" />,
       },
       {
         title: "نویسنده جدید",
@@ -117,7 +117,7 @@ export const ManagerDropDownLinks: AsideDropDown = [
         title: "پروفایل",
         key: "profile",
         href: "/dashboard/setting/profile",
-        startContent: <Home04Icon className="w-5 h-5" />,
+        startContent: <UserIcon className="w-5 h-5" />,
       },
       {
         title: "ادمین جدید",

@@ -1,4 +1,5 @@
 "use client";
+import { AsideLinksSection } from "@/schema/UI";
 import {
   Dropdown,
   DropdownItem,
@@ -17,7 +18,6 @@ import {
 const AsideDropDown = () => {
   const [role, setRole] = useState<string>("writer");
 
-  
   useEffect(() => {
     const storedRole = localStorage.getItem("user_role");
     if (storedRole) {
@@ -25,14 +25,14 @@ const AsideDropDown = () => {
     }
   }, []);
 
-  const roleLinks = {
+  const roleLinks: { [key: string]: AsideLinksSection[] } = {
     admin: AdminDropDownLinks,
     writer: WriterDropDownLinks,
     manager: ManagerDropDownLinks,
   };
 
   return (
-    <Dropdown>
+    <Dropdown backdrop="blur">
       <DropdownTrigger>
         <User
           as="button"
@@ -47,7 +47,7 @@ const AsideDropDown = () => {
       </DropdownTrigger>
       <DropdownMenu variant="flat" aria-label="Dropdown menu with description">
         {roleLinks[role].map((section) => (
-          <DropdownSection title={section.section} key={""}>
+          <DropdownSection title={section.section} key={section.section}>
             {section.links.map((link) => (
               <DropdownItem
                 key={link.key}

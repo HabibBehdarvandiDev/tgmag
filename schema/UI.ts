@@ -25,4 +25,28 @@ type AsideLinksSection = {
 
 type AsideDropDown = AsideLinksSection[];
 
-export type { AsideLinks, AsideLinksSection,AsideDropDown };
+type NavbarSubLink = {
+  title: string;
+  href: string;
+  startContent?: ReactNode;
+  endContent?: ReactNode;
+};
+
+type NavbarLinks = {
+  title: string;
+  href: string;
+  startContent?: ReactNode;
+  endContent?: ReactNode;
+  links?: NavbarSubLink[];
+};
+
+type NavbarLink = NavbarLinks[];
+
+export type {
+  AsideLinks,
+  AsideLinksSection,
+  AsideDropDown,
+  NavbarLinks,
+  NavbarSubLink,
+  NavbarLink,
+};
