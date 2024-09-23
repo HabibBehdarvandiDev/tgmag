@@ -42,6 +42,7 @@ const DeleteButton = ({ id, name }: { id: number; name: string }) => {
           message: response.data.message,
           variant: "success",
         });
+        window.location.reload();
       }
     } catch (error) {
       addToast({

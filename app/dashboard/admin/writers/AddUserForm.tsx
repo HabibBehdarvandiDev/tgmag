@@ -58,6 +58,7 @@ const AddUserForm = () => {
           variant: "success",
         });
         reset();
+        window.location.reload();
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {

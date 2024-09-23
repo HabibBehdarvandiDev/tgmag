@@ -97,7 +97,7 @@ const WritersTable = ({ writers }: { writers: WritersTableData[] }) => {
             </TableCell>
             <TableCell className="flex gap-2">
               {item.is_active ? (
-                <Chip color="success" variant="shadow">
+                <Chip color="success" variant="shadow" className="text-white">
                   فعال
                 </Chip>
               ) : (
@@ -106,7 +106,7 @@ const WritersTable = ({ writers }: { writers: WritersTableData[] }) => {
                 </Chip>
               )}
               {item.is_verified ? (
-                <Chip color="success" variant="shadow">
+                <Chip color="success" variant="shadow" className="text-white">
                   تایید شده
                 </Chip>
               ) : (
