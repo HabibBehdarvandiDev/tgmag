@@ -1,6 +1,7 @@
 "use client";
 
 import Delete02Icon from "@/components/icons/Delete02Icon";
+import { useToast } from "@/context/ToastContext";
 import {
   Button,
   Card,
@@ -13,9 +14,46 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
+import axios from "axios";
+import { useState } from "react";
 
 const DeleteButton = ({ id, name }: { id: number; name: string }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { addToast } = useToast();
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit = async (id: number) => {
+    try {
+      setLoading(true);
+      const response = await axios.delete(`/api/v1/users/${id}`);
+
+      if (response.data.status === "error") {
+        addToast({
+          title: "عملیات ناموفق!.",
+          message: response.data.message,
+          variant: "error",
+        });
+      }
+
+      if (response.data.status === "success") {
+        addToast({
+          title: "عملیات موفقیت آمیز بود.",
+          message: response.data.message,
+          variant: "success",
+        });
+      }
+    } catch (error) {
+      addToast({
+        title: "عملیات ناموفق!.",
+        message: "مشکلی هنگام ارتباط با سرور بوجود آمد",
+        variant: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+    console.log(id);
+  };
 
   return (
     <>
@@ -45,7 +83,15 @@ const DeleteButton = ({ id, name }: { id: number; name: string }) => {
                 </Card>
               </ModalBody>
               <ModalFooter className=" justify-start">
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  color="primary"
+                  onClick={async () => {
+                    await onSubmit(id);
+                    onClose();
+                  }}
+                  isLoading={loading}
+                  isDisabled={loading}
+                >
                   حذف
                 </Button>
                 <Button color="danger" variant="light" onPress={onClose}>
