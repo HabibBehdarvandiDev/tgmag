@@ -1,6 +1,7 @@
 import prisma from "@/db/db";
 import { UserUpdateSchema } from "@/schema/User";
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
 // Reusable function to validate if the id is numeric
 function validateNumericId(id: string) {
@@ -100,12 +101,19 @@ export async function PATCH(
     );
   }
 
+  if (validation.data.password) {
+    validation.data.password = await bcrypt.hash(
+      validation.data.password!,
+      parseInt(process.env.SALT_ROUND!) || 10
+    );
+  }
+
   try {
     const updatedUser = await prisma.users.update({
       where: {
         id: userId,
       },
-      data: validation.data, // Assuming this includes the updated fields
+      data: validation.data,
     });
 
     return NextResponse.json({
@@ -118,6 +126,41 @@ export async function PATCH(
       {
         status: "error",
         message: "خطایی در هنگام بروزرسانی کاربر رخ داد.",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+
+  // Validate if the id is a number
+  const validationError = validateNumericId(id);
+  if (validationError) return validationError;
+
+  // parse the id
+  const userId = parseInt(id);
+
+  try {
+    const deletedUser = await prisma.users.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    return NextResponse.json({
+      status: "success",
+      message: `کاربر با آیدی ${userId} حذف شد.`,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        status: "error",
+        message: "مشکلی هنگام ارتباط به سرور بوجود آمد!",
       },
       { status: 500 }
     );
