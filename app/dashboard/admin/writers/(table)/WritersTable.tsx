@@ -10,8 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import moment from "jalali-moment";
 import TableActions from "./TableActions";
+import { convertToJalali } from "@/utils";
 const columns: TableColumns[] = [
   {
     key: "id_number",
@@ -47,13 +47,7 @@ const columns: TableColumns[] = [
   },
 ];
 
-const convertToJalali = (isoDate: string) => {
-  const jalaliDate = moment(isoDate, "YYYY-MM-DDTHH:mm:ssZ")
-    .locale("fa")
-    .format("jYYYY/jMM/jDD");
 
-  return jalaliDate;
-};
 
 const WritersTable = ({ writers }: { writers: WritersTableData[] }) => {
   return (
