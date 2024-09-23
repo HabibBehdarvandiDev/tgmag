@@ -1,15 +1,53 @@
 "use client";
 
 import Delete02Icon from "@/components/icons/Delete02Icon";
-import { Button, Tooltip } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Tooltip,
+  useDisclosure,
+} from "@nextui-org/react";
 
-const DeleteButton = ({ id }: { id: number }) => {
+const DeleteButton = ({ id, name }: { id: number; name: string }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
-    <Tooltip color="danger" content="حذف نویسنده">
-      <Button color="danger" variant="light" isIconOnly>
-        <Delete02Icon />
-      </Button>
-    </Tooltip>
+    <>
+      <Tooltip color="danger" content="حذف نویسنده">
+        <Button color="danger" variant="light" isIconOnly onPress={onOpen}>
+          <Delete02Icon />
+        </Button>
+      </Tooltip>
+
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                حذف نویسنده
+              </ModalHeader>
+              <ModalBody>
+                شما درحال حذف حساب کاربری نویسنده {name} هستید. <br />
+                <Card className="bg-warning-400/15 text-warning-700 rounded-xl p-2 animate-pulse">لطفا در نظر داشته باشید این تغییر غیرقابل برگشت است!</Card>
+              </ModalBody>
+              <ModalFooter className=" justify-start">
+                <Button color="primary" onPress={onClose}>
+                  حذف
+                </Button>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  بستن
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

@@ -118,7 +118,10 @@ const WritersTable = ({ writers }: { writers: WritersTableData[] }) => {
             </TableCell>
             <TableCell>{convertToJalali(item.created_at)}</TableCell>
             <TableCell>
-              <TableActions id={item.id} />
+              <TableActions
+                id={item.id}
+                name={item.first_name + " " + item.last_name}
+              />
             </TableCell>
           </TableRow>
         ))}
