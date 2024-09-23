@@ -53,6 +53,56 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Check if user exists with the same email
+  if (validation.data.email) {
+    try {
+      const isEmailExist = await prisma.users.findFirst({
+        where: {
+          email: validation.data?.email,
+        },
+      });
+
+      // If the user already exists
+      if (isEmailExist) {
+        return NextResponse.json(
+          { status: "error", message: "این ایمیل از قبل وجود دارد." },
+          { status: 400 }
+        );
+      }
+    } catch (error) {
+      // Handle database connection issues
+      return NextResponse.json(
+        { status: "error", message: "خطا در اتصال به پایگاه داده." },
+        { status: 500 }
+      );
+    }
+  }
+
+  // Check if user exists with the same email
+  if (validation.data.phone_number) {
+    try {
+      const isPhoneNumberExist = await prisma.users.findFirst({
+        where: {
+          phone_number: validation.data?.phone_number,
+        },
+      });
+
+      // If the user already exists
+      if (isPhoneNumberExist) {
+        return NextResponse.json(
+          { status: "error", message: "این شماره از قبل وجود دارد." },
+          { status: 400 }
+        );
+      }
+    } catch (error) {
+      // Handle database connection issues
+      return NextResponse.json(
+        { status: "error", message: "خطا در اتصال به پایگاه داده." },
+        { status: 500 }
+      );
+    }
+  }
+
   // Hash the password
   const hashed_password = await bcrypt.hash(
     validation.data?.password,
@@ -68,6 +118,8 @@ export async function POST(req: NextRequest) {
         username: validation.data.username.toLowerCase(),
         password: hashed_password,
         role_id: 2, // Default role, change if necessary
+        email: validation.data.email,
+        phone_number: validation.data.phone_number,
       },
     });
 
@@ -98,6 +150,8 @@ export async function POST(req: NextRequest) {
           is_active: newUser.is_active,
           is_verified: newUser.is_verified,
           user_role: userRole?.role_name,
+          email: newUser.email,
+          phone_number: newUser.phone_number,
         },
       },
       { status: 201 }

@@ -8,7 +8,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <DashboardAside />
       <section className="w-full h-screen overflow-auto scrollbar-hide">
         <DashboardHeader />
-        <main className="p-4">{children}</main>
+        <main className="p-4 bg-background-300 w-full h-full">{children}</main>
       </section>
     </div>
   );

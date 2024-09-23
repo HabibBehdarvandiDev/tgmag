@@ -1,9 +1,11 @@
-import React from 'react'
+import Filters from "./Filters";
 
-const WritersPage = () => {
+const WritersPage = async () => {
   return (
-    <div>WritersPage</div>
-  )
-}
+    <div>
+      <Filters />
+    </div>
+  );
+};
 
-export default WritersPage
+export default WritersPage;

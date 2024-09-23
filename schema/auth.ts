@@ -29,6 +29,15 @@ const UserRegisterSchema = z.object({
   password: z
     .string({ required_error: " رمز ورود الزامی است." })
     .min(8, { message: "رمز عبور باید حداقل ۸ کاراکتر باشد" }),
+
+  email: z.string().email({ message: "ایمیل نامعتبر است." }).optional(),
+
+  phone_number: z
+    .string()
+    .regex(/^(\+98|0)?9\d{9}$/, {
+      message: "لطفا شماره تماس معتبر وارد کنید.",
+    })
+    .optional(),
 });
 
 const UserLoginSchema = z.object({
