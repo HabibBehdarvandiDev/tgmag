@@ -48,10 +48,9 @@ const columns: TableColumns[] = [
 ];
 
 const convertToJalali = (isoDate: string) => {
-  // Convert the ISO date to a Jalali date and format it
   const jalaliDate = moment(isoDate, "YYYY-MM-DDTHH:mm:ssZ")
-    .locale("fa") // Set locale to Persian
-    .format("jYYYY/jMM/jDD"); // Format the date
+    .locale("fa")
+    .format("jYYYY/jMM/jDD");
 
   return jalaliDate;
 };
