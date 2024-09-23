@@ -42,6 +42,30 @@ type NavbarLinks = {
 
 type NavbarLink = NavbarLinks[];
 
+type TableRows = {
+  key: string;
+  name: string;
+  role: string;
+  status: string;
+};
+
+type TableColumns = {
+  key: string;
+  label: string;
+};
+
+type WritersTableData = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  role_id: number;
+  email: string;
+  phone_number: string;
+  is_active: boolean;
+  is_verified: boolean;
+  created_at: string;
+};
+
 export type {
   AsideLinks,
   AsideLinksSection,
@@ -49,4 +73,7 @@ export type {
   NavbarLinks,
   NavbarSubLink,
   NavbarLink,
+  TableRows,
+  TableColumns,
+  WritersTableData,
 };
