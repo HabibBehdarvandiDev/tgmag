@@ -1,5 +1,6 @@
 "use client";
 
+import Calendar02Icon from "@/components/icons/Calendar02Icon";
 import Call02Icon from "@/components/icons/Call02Icon";
 import EyeIcon from "@/components/icons/EyeIcon";
 import FingerAccessIcon from "@/components/icons/FingerAccessIcon";
@@ -9,10 +10,6 @@ import { convertToJalali } from "@/utils";
 import {
   Avatar,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Chip,
   Divider,
   Modal,
@@ -21,12 +18,12 @@ import {
   ModalFooter,
   ModalHeader,
   Skeleton,
-  Spinner,
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import DetailsModalSkeleton from "./DetailsModalSkeleton";
 
 type UserDetails = {
   id: number;
@@ -104,11 +101,7 @@ const DetailsButton = ({ id }: { id: number }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                  <div className="space-y-4">
-                    <Skeleton className="h-12 w-12 rounded-full" />
-                    <Skeleton className="h-4 w-[250px]" />
-                    <Skeleton className="h-4 w-[200px]" />
-                  </div>
+                  <DetailsModalSkeleton />
                 ) : userDetails ? (
                   <div className="space-y-6">
                     <div className="flex items-center space-x-4 space-x-reverse">
@@ -137,11 +130,35 @@ const DetailsButton = ({ id }: { id: number }) => {
                     <div className="grid gap-4">
                       <div className="flex items-center gap-2">
                         <MailAtSign02Icon className="h-6 w-6 text-muted-foreground" />
-                        <span>{userDetails.email}</span>
+                        <span>
+                          {userDetails.email ? (
+                            userDetails.email
+                          ) : (
+                            <Chip
+                              className="animate-pulse"
+                              color="danger"
+                              variant="dot"
+                            >
+                              عدم تکمیل اطلاعات
+                            </Chip>
+                          )}
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Call02Icon className="h-6 w-6 text-muted-foreground" />
-                        <span>{userDetails.phone_number}</span>
+                        <span>
+                          {userDetails.phone_number ? (
+                            userDetails.phone_number
+                          ) : (
+                            <Chip
+                              className="animate-pulse"
+                              color="warning"
+                              variant="dot"
+                            >
+                              بدون شماره
+                            </Chip>
+                          )}
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <FingerAccessIcon className="h-6 w-6 text-muted-foreground" />
@@ -170,13 +187,13 @@ const DetailsButton = ({ id }: { id: number }) => {
                     <Divider />
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <EyeIcon className="h-4 w-4 text-muted-foreground" />
+                        <Calendar02Icon className="h-4 w-4 text-muted-foreground" />
                         <span className="text-sm">
                           تاریخ ایجاد: {convertToJalali(userDetails.created_at)}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <EyeIcon className="h-4 w-4 text-muted-foreground" />
+                        <Calendar02Icon className="h-4 w-4 text-muted-foreground" />
                         <span className="text-sm">
                           آخرین بروزرسانی :{" "}
                           {convertToJalali(userDetails.updated_at)}
