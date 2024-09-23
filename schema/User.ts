@@ -2,19 +2,19 @@ import { z } from "zod";
 
 const UserUpdateSchema = z.object({
   first_name: z
-    .string({ required_error: "نام الزامی است." })
+    .string()
     .min(2, { message: "نام باید حداقل ۲ حرف باشد." })
     .max(50, { message: "نام نمی‌تواند بیشتر از 50 حرف باشد." })
     .optional(),
 
   last_name: z
-    .string({ required_error: "نام خانوادگی الزامی است." })
+    .string()
     .min(2, { message: "نام خانوادگی باید حداقل ۲ حرف باشد." })
     .max(50, { message: "نام خانوادگی نمی‌تواند بیشتر از 50 حرف باشد." })
     .optional(),
 
   username: z
-    .string({ required_error: "نام کاربری الزامی است." })
+    .string()
     .min(3, { message: "نام کاربری باید حداقل ۳ حرف باشد." })
     .max(24, { message: "نام کاربری نمی‌تواند بیشتر از 24 حرف باشد." })
     .regex(/^[a-z]/, {
@@ -30,7 +30,7 @@ const UserUpdateSchema = z.object({
     .optional(),
 
   password: z
-    .string({ required_error: " رمز ورود الزامی است." })
+    .string()
     .min(8, { message: "رمز عبور باید حداقل ۸ کاراکتر باشد" })
     .optional(),
 
