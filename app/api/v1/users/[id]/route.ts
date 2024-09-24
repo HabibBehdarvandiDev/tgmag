@@ -154,7 +154,7 @@ export async function DELETE(
 
     return NextResponse.json({
       status: "success",
-      message: `کاربر با آیدی ${userId} حذف شد.`,
+      message: `کاربر با آیدی ${deletedUser.id} حذف شد.`,
     });
   } catch (error) {
     return NextResponse.json(

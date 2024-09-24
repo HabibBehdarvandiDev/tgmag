@@ -31,6 +31,9 @@ const AddWriterButton = () => {
             <>
               <ModalHeader className="flex flex-col gap-1">
                 ایجاد نویسنده جدید
+                <p className="text-sm font-normal text-foreground-500">
+                  برای ایجاد نویسنده جدید تمامی اطلاعات این فرم الزامی هستند
+                </p>
               </ModalHeader>
               <ModalBody>
                 <AddUserForm />
