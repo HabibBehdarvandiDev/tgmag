@@ -18,13 +18,13 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Spinner,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import EditeButtonSkeleton from "./skeletons/EditeButtonSkeleton";
 
 interface Inputs {
   first_name?: string;
@@ -185,9 +185,7 @@ const EditButton = ({ id }: { id: number }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                  <div className="flex justify-center">
-                    <Spinner size="lg" />
-                  </div>
+                  <EditeButtonSkeleton />
                 ) : (
                   <form
                     onSubmit={handleSubmit(onSubmit)}

@@ -1,5 +1,4 @@
 import prisma from "@/db/db";
-import Filters from "./Filters";
 import WritersTable from "./(table)/WritersTable";
 
 const WritersPage = async () => {
@@ -23,7 +22,7 @@ const WritersPage = async () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Filters />
+
       <WritersTable writers={writers} />
     </div>
   );

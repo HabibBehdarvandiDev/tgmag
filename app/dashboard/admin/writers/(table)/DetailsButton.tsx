@@ -17,13 +17,12 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Skeleton,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DetailsModalSkeleton from "./DetailsModalSkeleton";
+import DetailsModalSkeleton from "./skeletons/DetailsModalSkeleton";
 
 type UserDetails = {
   id: number;
