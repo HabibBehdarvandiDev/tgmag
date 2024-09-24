@@ -3,6 +3,7 @@
 import { TableColumns, WritersTableData } from "@/schema/UI";
 import {
   Chip,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -12,6 +13,8 @@ import {
 } from "@nextui-org/react";
 import TableActions from "./TableActions";
 import { convertToJalali } from "@/utils";
+import { useMemo, useState } from "react";
+
 const columns: TableColumns[] = [
   {
     key: "id_number",
@@ -47,18 +50,50 @@ const columns: TableColumns[] = [
   },
 ];
 
-
-
 const WritersTable = ({ writers }: { writers: WritersTableData[] }) => {
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 10;
+
+  // Calculate total pages for pagination
+  const pages = Math.ceil(writers.length / rowsPerPage);
+
+  // Memoized computation for paginated items
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return writers.slice(start, end);
+  }, [page, writers]);
+
   return (
-    <Table shadow="sm" border={1}>
+    <Table
+      shadow="sm"
+      border={1}
+      aria-label="Writers table with client-side pagination"
+      bottomContent={
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="primary"
+            page={page}
+            total={pages}
+            onChange={(newPage) => setPage(newPage)}
+          />
+        </div>
+      }
+      classNames={{
+        wrapper: "min-h-[700px]",
+      }}
+    >
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
       <TableBody emptyContent={<div>empty</div>}>
-        {writers.map((item, index) => (
+        {items.map((item, index) => (
           <TableRow key={index}>
-            <TableCell>{index + 1}</TableCell>
+            <TableCell>{(page - 1) * rowsPerPage + index + 1}</TableCell>
             <TableCell>{item.first_name + " " + item.last_name}</TableCell>
             <TableCell>
               <Chip color="primary" variant="flat">

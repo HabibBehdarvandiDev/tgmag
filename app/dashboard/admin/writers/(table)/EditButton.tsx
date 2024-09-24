@@ -181,7 +181,7 @@ const EditButton = ({ id }: { id: number }) => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Edit User
+                اصلاح اطلاعات نویسنده
               </ModalHeader>
               <ModalBody>
                 {loading ? (
